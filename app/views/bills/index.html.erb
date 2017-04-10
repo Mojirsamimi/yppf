@@ -3,10 +3,52 @@
 <h1>Listing Bills</h1>
 
 <table>
-  <thead>
+  <div class="row">
+      <div class="col-md-2 text-center nopad">
+      <b> Date </b>
+    </div>
+    <div class="col-md-2 text-center nopad">
+      <b> Month </b>
+    </div>
+    <div class="col-md-2 text-center nopad">
+      <b> Year </b>
+    </div>
+    <div class="col-md-2 text-center nopad">
+      <b> Value </b>
+    </div>
+    <div class="col-md-2 text-center nopad">
+      <b> Edit </b>
+    </div>
+    <div class="col-md-2 text-center nopad">
+      <b> Destroy </b>
+    </div>
+  </div>
+  <div class="row">
+    <% @bills.each do |bill| %>
+      <div class="col-md-2 text-center nopad">
+        <%= bill.day_month %>
+      </div>
+      <div class="col-md-2 text-center nopad">
+        <%= bill.month %>
+      </div>
+      <div class="col-md-2 text-center nopad">
+        <%= bill.year %>
+      </div>
+      <div class="col-md-2 text-center nopad">
+        <%= bill.amount %>
+      </div>
+      <div class="col-md-2 text-center nopad">
+        <%= link_to 'Edit', edit_bill_path(bill) %>
+      </div>
+      <div class="col-md-2 text-center nopad">
+        <%= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    </div>
+    <% end %>
+  </table>
+  <!-- <thead>
     <tr>
       <th>User_id</th>
-      <th>Expenseid</th>
       <th>Day month</th>
       <th>Month</th>
       <th>Year</th>
@@ -18,13 +60,14 @@
     <% @bills.each do |bill| %>
       <tr>
         <td><%= bill.user_id %></td>
-        <td><%= bill.expenseid %></td>
         <td><%= bill.day_month %></td>
         <td><%= bill.month %></td>
         <td><%= bill.year %></td>
+        <td><%= link_to 'Edit', edit_bill_path(bill) %></td>
+        <td><%= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<br> -->

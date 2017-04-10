@@ -1,0 +1,90 @@
+<%= form_for(@bill,:url => { :action => "create" },:html => {:class => 'form-horizontal',:id => 'calnew_bill'}) do |f| %>
+  <% if @bill.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
+
+      <ul>
+      <% @bill.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class = "row">
+
+    <div class="col-md-2">
+      <%= f.label 'Amount' %><br>
+      <%= f.text_field :amount %>
+    </div>
+
+    <%= f.hidden_field :user_id, :id => current_user.id %>
+    <%= f.hidden_field :day_month, :id => "date"%>
+    <%= f.hidden_field :month, :id => "month"%>
+    <%= f.hidden_field :year, :id => "year"%>
+    <div class ="col-md-2">
+      <%= f.label 'Valid From' %>
+        <input type="text" id="selection">
+
+      <script>
+      $(document).ready(function() {
+          $("#selection").datepicker();
+          $("#calnew_bill").submit(function() {
+          	  var selection = $("#selection").val();
+              var res = selection.split("/");
+              var month = res[0].split("0");
+              if (month.length == 2){
+                 month = month[1];
+               }
+               else{
+                 month = res[0];
+               }
+              var date = res[1].split("0");
+              if (date.length == 2){
+                 date = date[1];
+               }
+               else{
+                 date = res[1];
+               }
+               $('#date').val(date);
+               $('#month').val(month);
+               $('#year').val(res[2]);
+          });
+      });
+      </script>
+    </div>
+
+  <%= f.hidden_field :expire_month, :id => "expire_month"%>
+  <%= f.hidden_field :expire_year, :id => "expire_year"%>
+  <div class ="col-md-2">
+    <%= f.label 'Until' %>
+      <input type="text" id="selection2">
+
+    <script>
+    $(document).ready(function() {
+        $("#selection2").datepicker();
+        $("#calnew_bill").submit(function() {
+            var selection = $("#selection2").val();
+            var res = selection.split("/");
+            var month = res[0].split("0");
+            if (month.length == 2){
+               month = month[1];
+             }
+             else{
+               month = res[0];
+             }
+            var date = res[1].split("0");
+            if (date.length == 2){
+               date = date[1];
+             }
+             else{
+               date = res[1];
+             }
+             $('#expire_month').val(month);
+             $('#expire_year').val(res[2]);
+        });
+    });
+    </script>
+  </div>
+</div>
+  <h1></h1>
+<% end %>

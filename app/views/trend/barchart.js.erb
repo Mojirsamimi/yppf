@@ -1,0 +1,64 @@
+$('.search_results').html("<%= escape_javascript (render(partial: 'search_results')) %>");
+
+//<!--High Charts bar chart  -->
+$(function () {
+    $('#bar').highcharts({
+        chart: {
+            backgroundColor: '#ffffe6',
+            type: 'column',
+            style: {
+              color: "#241563"
+            }
+        },
+        legend: {
+          itemStyle: {
+            color: '#241563'
+          },
+          itemHoverStyle: {
+            color: '#241563'
+          }
+        },
+        title: {
+            text: '',
+            style: {
+              color: "#241563"
+            }
+        },
+        xAxis: {
+            categories: <%= @months.to_json.html_safe %>,
+            // lineColor: "#241563",
+            tickColor: "#241563",
+            labels: {
+              style: {
+                color: "#241563"
+              }
+            },
+            title: {
+              style: {
+                color: "#241563"
+              }
+            }
+        },
+        yAxis: {
+          title: {
+            text: 'Money Spent',
+            style: {
+              color: "#241563"
+            }
+        // y axis - how much money
+          },
+          // gridLineColor: "#241563",
+          labels: {
+            style: {
+              color: "#241563"
+            }
+          }
+        },
+        series: [{
+            // months
+            name: '<%= @category_name %>',
+            data: <%= @values.to_json.html_safe %>,
+            color: '#36c9c6'
+        }]
+    });
+});

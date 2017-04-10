@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 gem 'devise', '3.4.1'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass','~> 3.3.6'
 gem 'jquery-turbolinks'
 gem 'minitest-spec-rails'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
-
+#test branch
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
 # Use sqlite3 as the database for Active Record
@@ -63,3 +63,6 @@ end
 gem "chartkick"
 gem "simple_calendar", "~> 2.0"
 gem "json"
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
+gem 'pusher'

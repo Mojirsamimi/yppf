@@ -2,7 +2,28 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#h1ex{
+  color: #241563;
+  text-align: center;
+}
+#h4ex{
+  color: #241563;
+  text-align: center;
+}
+
 .vertical-align {
     display: flex;
     align-items: center;
 }
+
+.control-label{
+  color: #241563;
+}
+//
+// .well.custom{
+//   background: #ED6A5A;
+// }
+// .panel.custom{
+//   background: #ED6A5A;
+//
+// }

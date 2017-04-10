@@ -1,0 +1,30 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#h1ex{
+  color: #241563;
+  text-align: center;
+
+}
+
+.btn {
+  border-color: #ED6A5A;
+  background-color: #ED6A5A;
+  color: #ffffe6;
+
+}
+
+.btn-custom {
+  border-color: #ED6A5A;
+  background-color: #ED6A5A;
+  color: #ffffe6 !important;
+
+}
+
+.btn-custom:hover {
+  border-color: #ED6A5A;
+  background-color: #ED6A5A;
+  color: #ffffe6;
+
+}

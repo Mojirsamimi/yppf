@@ -1,0 +1,31 @@
+
+  
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped table-condensed" width="%100">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Value</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody id="expense-details-table-<%= expense.id%>">
+              <%expense.expense_details.order(expdet_date: :desc).each_with_index do |exp_details,index|%>
+            <tr>
+              <td><%=index+1%></td>
+              <td><a href="#" data-toggle="tooltip" title="<%=exp_details.expdet_date.in_time_zone("EST").strftime('%r')%>" data-placement="top" data-container="body"><%=exp_details.expdet_date.in_time_zone("EST").strftime('%a %d %b %Y')%></a> </td>              
+              <td>$<%=exp_details.expdet_value%></td>
+              <td><div data-toggle="tooltip" title="<%=exp_details.expdet_description%>" data-placement="top" data-container="body"><%=truncate(exp_details.expdet_description,length:10)%></div></td>              
+            </tr>
+            <%end%>
+          </tbody>
+        </table>   
+      </div>
+      <div class="col-md-12 text-center">
+      <ul class="pagination pagination-sm pager-<%=expense.id%>" id="expense-details-pager-<%=expense.id%>"></ul>
+      </div>
+    </div>
+
+

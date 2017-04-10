@@ -1,0 +1,56 @@
+<div class="row">
+  <div class = "col-md-12">
+    <center><%= image_tag("Logo2.png", :class => "style_image")%></center>
+    <h4>Keep track of your expenses, income</h4>
+    <h4>and manage your money responsibly and effectively</h4>
+  </div>
+</div>
+
+<div class="row">
+  <center><%=link_to "Get started today!", new_user_session_path, class: "btn btn-custom btn-lg"%></center>
+</div>
+
+<hr>
+<div class="container text-center">
+  <div class="row">
+    <div class="col-sm-3">
+      <center><%= link_to image_tag("Budget2.png", class: "img-responsive", id: "style_image"), budgets_display_path%></center>
+      <%= link_to "Budget", budgets_display_path, class: "btn btn-custom"%>
+    </div>
+    <div class="col-sm-3">
+      <center><%= link_to image_tag("Calendar2.png", class: "img-responsive", id: "style_image"), calendar_new_path%></center>
+      <p><%= link_to "Calendar", calendar_new_path, class: "btn btn-custom"%></p>
+    </div>
+    <div class="col-sm-3">
+      <center><%= link_to image_tag("Compare2.png", class: "img-responsive", id: "style_image"), compare_new_path%></center
+      <p><%= link_to "Compare", compare_new_path, class: "btn btn-custom"%></p>
+    </div>
+    <div class="col-sm-3">
+      <center><%= link_to image_tag("Trend2.png", class: "img-responsive", id: "style_image"), trend_new_path%></center
+      <p><%= link_to "Trend", trend_new_path, class: "btn btn-custom"%></p>
+    </div>
+  </div>
+
+<hr>
+  <div class="row">
+    <div class="col-sm-3">
+      <p>With visual progress bars, you can track spending by category. Dynamically add new transactions or check in how much more of your monthly spending budget is left. We've mapped it out easily for you!</p>
+    </div>
+    <div class="col-sm-3">
+      <p>You can visually manage bill due dates with this simple-to-use calendar feature. Never miss a deadline again! </p>
+    </div>
+    <div class="col-sm-3">
+      <p>Compare your spending from month to month with easy to read visuals. Understand the breakdown of spending by category so you can better budget in future months.</p>
+    </div>
+    <div class="col-sm-3">
+      <p>Track your spending trends over the calendar year. See your top three expenses, as well as visual breakdowns of spending by category</p>
+    </div>
+  </div>
+</div><br>
+
+<footer class="container-fluid text-center">
+  <p>Eden Shoshan, Elena Stoeri-D'Arrigo, Mojir Samimi, Karishma Reddy Khan</p>
+</footer>
+
+</body>
+</html>

@@ -1,15 +1,38 @@
 Rails.application.routes.draw do
+  get 'home' => 'home#new'
+
+  get 'expense_categories/new'
+
+  get 'expense_categories/create'
+
+  get 'expense_categories/index'
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   get 'welcome/index'
 
   resources :users
-  resources :expenses
+  resources :expenses do
+    resources :expense_details
+  end
   resources :bills
+  get 'bills/cal/new' => 'bills#calnew'
+  post 'bills/create' => 'bills#create'
   resources :incomes
+  post 'expense_references/createrecurrent' => 'expense_references#createrecurrent'
+  post 'expense_references/createone' => 'expense_references#createone'
+  get 'expense_references/newone' => 'expense_references#newone'
+  resources :expense_references
+  get 'expense_references/allinone/new' => 'expense_references#allinonenew'
+  get 'expense_references/justgeneral/new' => 'expense_references#justgeneral'
+  post 'expense_references/create' => 'expense_references#create'
 
-  root 'dashboard#new'
+
+  root 'home#new'
   #root to: 'pages#index'
+  #Expense Reference
+
+  #get 'manageexpenses/index' => 'expense_references#index'
 
   get 'dashboard/new' => 'dashboard#new'
   get 'datas/add' => 'datas#add'
@@ -20,9 +43,10 @@ Rails.application.routes.draw do
   get 'calendar/new' => 'calendar#new'
 
   get 'compare/new' => 'compare#new'
-  post 'compare/create' => 'compare#create'
+  get 'compare/create' => 'compare#create'
 
   get 'trend/new' => 'trend#new'
+  get 'trend/barchart' => 'trend#barchart'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

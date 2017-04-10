@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Expenseid:</strong>
-  <%= @bill.expenseid %>
+  <strong>Amount:</strong>
+  <%= @bill.amount %>
 </p>
 
 <p>
@@ -18,6 +18,16 @@
 <p>
   <strong>Year:</strong>
   <%= @bill.year %>
+</p>
+
+<p>
+  <strong>Expiration Month:</strong>
+  <%= @bill.expire_month %>
+</p>
+
+<p>
+  <strong>Expiration Year:</strong>
+  <%= @bill.expire_year %>
 </p>
 
 <%= link_to 'Edit', edit_bill_path(@bill) %> |

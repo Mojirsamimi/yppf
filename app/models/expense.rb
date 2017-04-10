@@ -1,8 +1,16 @@
 class Expense < ActiveRecord::Base
   belongs_to :user
 
+  belongs_to :expense_reference
+  belongs_to :bill
+  has_many :expense_details, dependent: :destroy
+  has_one :expense_category
+
+
+
   # validate positive fields
-  validates :projvalue, :percent, :month, numericality: {greater_than_or_equal_to: 0}
+  validates :projvalue, :month, numericality: {greater_than_or_equal_to: 0}
+  #validates :bill_id
   # validate valid year
   validates :year,
     presence: true,
@@ -21,26 +29,14 @@ class Expense < ActiveRecord::Base
     "#{MONTHS[month]} #{year}"
   end
 
-  def projvalue_sum(month, year)
-    @expenses = Expense.where(month:month).where(year:year)
-    projected = 0
-    @expenses.each do |expense|
-      projected = projected + expense.projvalue
-    end
-    return projected
-  end
+ 
 
-  def actvalue_sum(month, year)
-    @expenses = Expense.where(month:month).where(year:year)
-    actual = 0
-    @expenses.each do |expense|
-      actual = actual + expense.actvalue
-    end
-    return actual
-  end
+ 
+
 def expense_category_name
   ExpenseCategory.find(expense_category_id).exp_name
 end
+
   MONTHS = [0, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 end

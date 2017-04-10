@@ -15,6 +15,9 @@ before_action :authenticate_user!
   # GET /incomes/new
   def new
     @income = Income.new
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /incomes/1/edit
@@ -28,15 +31,13 @@ before_action :authenticate_user!
     if user_signed_in?
       @income.user_id = current_user.id
     end
-
-
+    @income.month=Date.today.month
+    @income.year=Date.today.year
+    @income.day_rec=Date.today.day
+@income_chart_data=[['IE',56.33],['Chrome',24.03],['Safari',4.77],['Opera',0.91],{name: 'Proprietary or Undetectable',y: 0.2,dataLabels: {enabled: false}}]
     respond_to do |format|
       if @income.save
-        format.html { redirect_to @income, notice: 'Income was successfully created.' }
-        format.json { render :show, status: :created, location: @income }
-      else
-        format.html { render :new }
-        format.json { render json: @income.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

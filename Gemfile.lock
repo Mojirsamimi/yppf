@@ -95,11 +95,16 @@ GEM
       i18n (~> 0.5)
     font-awesome-rails (4.5.0.1)
       railties (>= 3.2, < 5.1)
+    fullcalendar-rails (2.6.1.0)
+      jquery-rails (>= 4.0.5, < 5.0.0)
+      jquery-ui-rails (>= 5.0.2)
+      momentjs-rails (>= 2.9.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.7)
       tilt
     hirb (0.7.3)
+    httpclient (2.7.1)
     i18n (0.7.0)
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
@@ -128,6 +133,8 @@ GEM
     minitest-spec-rails (5.3.0)
       minitest (~> 5.0)
       rails (>= 4.1)
+    momentjs-rails (2.11.0)
+      railties (>= 3.1)
     multi_json (1.11.2)
     nested_form (0.3.2)
     nokogiri (1.6.7.2)
@@ -140,6 +147,11 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    pusher (0.17.0)
+      httpclient (~> 2.7)
+      multi_json (~> 1.0)
+      pusher-signature (~> 0.1.8)
+    pusher-signature (0.1.8)
     rack (1.6.4)
     rack-pjax (0.8.0)
       nokogiri (~> 1.5)
@@ -228,12 +240,13 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   better_errors
-  bootstrap-sass
+  bootstrap-sass (~> 3.3.6)
   byebug
   chartkick
   coffee-rails (~> 4.1.0)
   devise (= 3.4.1)
   faker
+  fullcalendar-rails
   hirb
   jbuilder (~> 2.0)
   jquery-rails
@@ -241,8 +254,10 @@ DEPENDENCIES
   jquery-ui-rails
   json
   minitest-spec-rails
+  momentjs-rails
   pg
   pry-rails
+  pusher
   rails (= 4.2.5.1)
   rails_12factor
   rails_admin!

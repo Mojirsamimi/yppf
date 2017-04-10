@@ -37,8 +37,12 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @expense.save
-        format.html { redirect_to @expense, notice: 'Expense was successfully created.' }
-        format.json { render :show, status: :created, location: @expense }
+        if @expense.bill_id == 1
+          format.html { redirect_to bills_new_path, notice: 'Expense was successfully created.' }
+        else
+          format.html { redirect_to @expense, notice: 'Expense was successfully created.' }
+          format.json { render :show, status: :created, location: @expense }
+        end
       else
         format.html { render :new }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
@@ -78,6 +82,6 @@ class ExpensesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expense_params
-      params.require(:expense).permit(:user_id, :expensetype, :frequency, :projvalue, :actvalue, :percent, :month, :year,:expense_category_id)
+      params.require(:expense).permit(:user_id, :expensetype, :frequency, :projvalue, :actvalue, :percent, :bill_id, :month, :year,:expense_category_id)
     end
 end

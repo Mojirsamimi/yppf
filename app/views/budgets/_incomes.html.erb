@@ -1,0 +1,48 @@
+<div id="income-container" ></div>
+
+<div class="modal fade" id="NewIncomeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header-custom">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel"><font color="#ffffe6">New Income</font></h4>
+            </div>
+            <div class="modal-body modal-body-custom">
+                <div id="new-income-form">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="save-new-income" class="btn btn-primary" data-dismiss="modal">
+                    Save changes
+                </button>
+                <button type="button" class="btn btn-black" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$('#NewIncomeModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)// Button that triggered the modal
+        var new_income_url = button.data('url')// Extract info from data-* attributes
+                
+        $.ajax({
+            url : new_income_url,
+            type : "GET"
+        });
+    })
+    $('#save-new-income').click(function() {
+
+        $("#new_income").submit();
+        $('#NewIncomeModal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+
+    })
+    
+    
+    </script>

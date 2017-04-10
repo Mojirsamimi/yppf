@@ -12,13 +12,38 @@
  *
  *= require simple_calendar
  *= require_tree .
- *= require_self
  *= require jquery-ui
+ *= require fullcalendar
  */
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import 'bootstrap/theme';
+
+.navbar-custom {
+   background-color: #ED6A5A;
+}
+
+.navbar-custom .navbar-header {
+  color: #ffffe6;
+  padding-right: 10px;
+  font-size: 16pt;
+}
+
+.navbar-custom .navbar-subheading{
+  color: #ffffe6;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12pt;
+}
+
+.navbar-custom .navbar-nav > li > a {
+  color: #ffffe6;
+}
+
+.navbar-custom .navbar-toggle {
+  background-color: #eeeeee;
+}
 
 .alert-alert {
   @extend .alert-warning;
@@ -26,4 +51,131 @@
 
 .alert-notice {
   @extend .alert-info;
+}
+.field_with_errors { display: flex; }
+
+.bar-wrap {
+    position: relative;
+}
+.progress-marker {
+    width: 2px;
+    height: 10px;
+    position: absolute;
+    background: black;
+    top: -5px;
+}
+.time-axis {
+    display: block;
+    float: left;
+    width: 100%;
+    /*margin: 0px 0 10px 0;*/
+}
+.time-spot {
+    display: block;
+    float: left;
+    width: 25%;
+}
+
+.time-spot-begin {
+    display: block;
+    float: left;
+    width: .5%;
+}
+
+.time-spot-end {
+    display: block;
+    float: right;
+    width: 12.5%;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.nopad{
+  padding: 0px;
+}
+
+.progress {background: rgba(255, 255, 255, 1); border: 0px solid rgba(42, 77, 0, 0.17); border-radius: 4px; height: 20px;}
+.table-responsive {height:170px;}
+
+
+#mini.progress {background: rgba(255, 255, 255, 1); border: 0px solid rgba(42, 77, 0, 0.17); border-radius: 4px; height: 13px;}
+.progress-bar-info {
+    background: rgba(54, 201, 198, 1);
+}
+
+.progress-bar-success {
+    background: rgba(163,237,90,1);
+}
+
+.progress-bar-warning {
+    background: rgba(237,237,90,1);
+}
+
+.progress-bar-danger {
+    background: rgba(237,106,90, 1);
+}
+
+.panel-default > .panel-heading {
+  background: #ED6A5A;
+  color: #ffffe6;
+}
+
+.panel-default{
+  background: #ffffe6;
+}
+
+// .panel-plain > .panel-heading {
+//   background: #ED6A5A;
+//   color: #ffffe6;
+// }
+
+.panel-plain{
+  background: #ffffe6;
+}
+
+.modal-header-custom{
+  background-color: #ED6A5A;
+}
+
+.modal-body-custom{
+  background-color: #ffffe6;
+}
+
+.modal-footer-custom{
+  background-color: #ffffe6;
+}
+
+.pad {
+    // padding-top: 50px;
+    padding-right: 30px;
+    // padding-bottom: 50px;
+    padding-left: 30px;
+}
+
+.btn-black{
+  background: red;
+}
+
+.btn-primary{
+  border: 0;
+  background: #241563 !important;
+}
+
+.btn-temp{
+  border: 0;
+  background: #ffffe6 !important;
+}
+
+.active a{
+    background: #36C9C6  !important;
 }

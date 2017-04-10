@@ -1,0 +1,52 @@
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title"><%= category.exp_name%> Details</h3>
+		</div>
+		<div class="panel-body">
+			<%expenses_by_category(category.id).each do |expense|%>
+				<div class="row">
+				<div class="col-md-1 text-left">
+					$0
+				</div>
+				<div class="col-md-8 text-center nopad">
+				     <a class="expense-instance-name" onclick="clearBadge('expense-instance-badge-<%=expense.id%>');" role="button"  data-expenseid="<%=expense.id%>" data-toggle="collapse" href="#expense-details-collapse-<%= expense.id%>" aria-expanded="false" aria-controls="collapseExample"> <%= expense.expensename%></a> <span class="badge" id="expense-instance-badge-<%=expense.id%>"></span>
+					
+				</div>
+				<div class="col-md-1 text-right nopad">
+					$<%= expense.projvalue %>
+				</div>
+				<div class="col-md-2 text-right"></div>
+			    </div>
+			<div class="row">
+
+				<div class="col-md-10" >
+					<div class="bar-wrap">
+						<div class="progress" id="mini">
+							<div id="progress-bar-exp-<%= expense.id%>" class="progress-bar <%= get_progress_type((expense.actvalue/expense.projvalue) * 100) %> progress-bar-striped" role="progressbar" aria-valuenow="<%= expense.actvalue%>" aria-valuemin="0" aria-valuemax="<%= expense.projvalue %>" style="width: <%= (expense.actvalue/expense.projvalue) * 100 %>%">
+
+							</div>
+
+						</div>
+
+						<div style="left:0%" class="progress-marker"></div>
+						<div style="right:0%" class="progress-marker"></div>
+
+					</div>
+				</div>
+				<div class="col-md-2 nopad">
+					<a  data-toggle="modal" data-expname="<%= expense.expensename%>" data-url="<%= "/expenses/#{expense.id}/expense_details/new"%>" href="#ExpenseDetailModal" aria-hidden="true"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+
+				</div>
+			</div>
+			<div class="row">
+			    <div class="col-md-12">
+			     <div class="collapse" id="expense-details-collapse-<%= expense.id%>">
+			     <%=render(partial: '/budgets/expense_details',locals: { expense: expense })%>
+			     </div>
+			     </div>
+			</div>
+			<%end%>
+		</div>
+	</div>
+

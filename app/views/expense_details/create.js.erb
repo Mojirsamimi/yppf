@@ -1,0 +1,18 @@
+$('#progress-bar-exp-<%=@exp.id%>').prop('class', 'progress-bar <%= get_progress_type((@exp.actvalue/@exp.projvalue) * 100) %>  progress-bar-striped');
+$('#progress-bar-exp-<%=@exp.id%>').prop('aria-valuenow', '<%= @exp.actvalue%>');
+$('#progress-bar-exp-<%=@exp.id%>').prop('style', 'width: <%= (@exp.actvalue/@exp.projvalue) * 100 %>%');
+
+$('#progress-bar-cat-<%=@exp.expense_category_id%>').prop('class', 'progress-bar <%= get_progress_type(get_percentage(@exp.expense_category_id) * 100) %>');
+$('#progress-bar-cat-<%=@exp.expense_category_id%>').prop('aria-valuenow', '<%= get_sumAct(@exp.expense_category_id)%>');
+$('#progress-bar-cat-<%=@exp.expense_category_id%>').prop('style', 'width: <%=get_percentage(@exp.expense_category_id) * 100%>%');
+
+$('#expense-details-collapse-<%=@exp.id%>').html("<%= escape_javascript (render(partial: '/budgets/expense_details',locals: { expense: @exp })) %>");
+$("#expense-details-table-<%=@exp.id%>").pageMe({pagerSelector:"#expense-details-pager-<%=@exp.id%>",showPrevNext:true,hidePageNumbers:false,perPage:4,expenseid:<%=@exp.id%>});
+
+$('#expense-instance-badge-<%=@exp.id%>').updateMyNumber();
+
+$('#expenditure-message').html("<%= get_total_expenditure_message(Date.today.month, Date.today.year)%>");
+
+$('#progress-bar-expenditure').prop('aria-valuenow', '<%= get_actvalue(Date.today.month, Date.today.year)%>');
+$('#progress-bar-expenditure').prop('style', 'width: <%= get_total_expenditure(Date.today.month, Date.today.year)%>%');
+

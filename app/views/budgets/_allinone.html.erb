@@ -1,0 +1,62 @@
+        <div class="row">
+            <div class="col-md-3 text-center nopad">
+            <b> Category </b>
+          </div>
+          <div class="col-md-2 text-center nopad">
+            <b> Suggestion </b>
+          </div>
+          <div class="col-md-4 text-center nopad">
+            <b> General Expense </b>
+          </div>
+          <div class="col-md-2 text-center nopad">
+            <b> Specific Expenses </b>
+          </div>
+        </div>
+        <% @expense_categories = ExpenseCategory.all %>
+        <% @expense_categories.each do |categories| %>
+        <div class="row">
+          <div class="col-md-3 text-center">
+            <a role="button" data-toggle="collapse" href="#collapse-2-<%= categories.id%>" aria-expanded="false" aria-controls="collapseExample"> <%= "#{categories.exp_name}" %></a>
+            <div class="collapse" id="collapse-2-<%= categories.id%>">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+
+                        <%expenses_by_category(categories.id).each do |expense|%>
+                        <div class="row">
+                            <div class="col-md-8 nopad">
+                              <%= expense.expensename%>
+                            </div>
+                            <div class="col-md-1 text-right nopad">
+                                $<%= expense.projvalue %>
+                            </div>
+                            <div class="col-md-2 text-right">
+                            </div>
+                        </div>
+                        <%end%>
+                    </div>
+            </div>
+            </div>
+          </div>
+          <div class="col-md-2 text-center nopad">
+            <%= get_sumProj(categories) %>
+          </div>
+          <div class="col-md-4 text-center nopad">
+            <div class="col-md-12 text-center nopad">
+              <form action="/expense_references/create" method="post" remote="true">
+                <input type="text" id="ref_name" size="11">
+                <input type="integer" id="ref_value" size="11">
+                <input type="hidden" id="ref_type" value="1">
+                <input type="hidden" id="ref_month" value="<%= Date.today.month%>">
+                <input type="hidden" id="ref_year" value="<%= Date.today.year%>">
+                <input type="hidden" id="expense_category_id" value="<%= categories.id %>">
+                <input type="submit" value="Add">
+              </form>
+            </div>
+          </div>
+
+          <div class="col-md-2 text-center nopad">
+              <a  data-toggle="modal" href="#ExpenseReferenceModal" data-url="<%=expense_references_allinone_new_path%>" aria-hidden="true">Add</a>
+            </div>
+
+        </div>
+        <% end %>

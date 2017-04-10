@@ -1,17 +1,29 @@
-<p id="notice"><%= notice %></p>
+<!-- Top 3 expenses -->
+<!-- <h1>Spending Trends over <%=Date.today.year%></h1> -->
 
-<head>
-  <script src="http://code.highcharts.com/highcharts.js"></script>
-</head>
+<h1 id = "h1ex">Spending Trends</h1>
 
+<% if @categories.empty? %>
+  <div class="row">
+    <div class="col-md-3">
+    </div>
 
-<center><h1>Spending Trends over <%=Date.today.year%></h1></center>
+    <div class = "col-md-6">
+      <center> You do not have enough data to compare months. </center>
+    </div>
+
+    <div class="col-md-3">
+    </div>
+  </div>
+
+<% else %>
+
 
 <div class="row vertical-align">
   <div class="col-md-5">
     <div class = "panel panel-default">
       <div class = "panel-body">
-        <h4>Top 3 Expenses for <%=Date.today.year %> are:</h4>
+        <h4 id="h4ex">Top 3 Expenses for <%=Date.today.year %> are:</h4>
 
         <div class = "row">
           <%key = @x.keys[0]%>
@@ -27,6 +39,7 @@
             <div class = "col-md-6">
               <%=((value.to_f/@total)*100).round(2)%>% of all spending
             </div>
+
           </div>
         </div>
         <div class = "row">
@@ -71,13 +84,114 @@
 
 </div>
 
-<button onclick="goBack()">Back</button>
+<div class="row">
+  <div class="col-md-4">
+  </div>
+  <div class="col-md-4">
+    <div class="row">
+    <%= form_tag(trend_barchart_path, method: "get", remote: true, role: "form", class: "form", id: "form") do %>
+    <div class="form-group">
+      <div class="col-md-6">
+      <label class="control-label">Compare spending for: </label>
+      </div>
+      <div class="col-md-3">
+      <%= select_tag(:categoryselect, options_for_select(@categories), :style => "min-width: 125px;", class: "form-control", :onchange => ("$('#form').submit();")) %>
+      </div>
+    </div>
+    <%end%>
+    </div>
+  </div>
+  <div class="col-md-4">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+      <div class="initial_results search_results"> </div>
+  <div>
+</div>
+
+<% end %>
+
+
+<div class="row">
+  <h1> </h1>
+  <center><button onclick="goBack()">Back</button></center>
+</div>
+
 
 <script>
 function goBack(){
   window.history.back();
 }
 </script>
+
+<script>
+$(function () {
+    $('.initial_results').highcharts({
+        chart: {
+            backgroundColor: '#ffffe6',
+            type: 'column',
+            style: {
+              color: "#241563"
+            }
+        },
+        legend: {
+          itemStyle: {
+            color: '#241563'
+          },
+          itemHoverStyle: {
+            color: '#241563'
+          }
+        },
+        title: {
+            text: '',
+            style: {
+              color: "#241563"
+            }
+        },
+        xAxis: {
+            categories: <%= @months2.to_json.html_safe %>,
+            // lineColor: "#241563",
+            tickColor: "#241563",
+            labels: {
+              style: {
+                color: "#241563"
+              }
+            },
+            title: {
+              style: {
+                color: "#241563"
+              }
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Money Spent',
+                style: {
+                  color: "#241563"
+                }
+                // y axis - how much money
+            },
+            // gridLineColor: "#241563",
+            labels: {
+              style: {
+                color: "#241563"
+              }
+            }
+        },
+        series: [{
+            // months
+            name: '<%= @category_name2 %>',
+            data: <%= @values2.to_json.html_safe %>,
+            color: '#36c9c6'
+        }]
+    });
+});
+
+
+</script>
+
 
 
 <!-- Trend chart for overall spending -->
@@ -87,26 +201,53 @@ $(function () {
     var touse = []
 
     for (i = 0; i < mdata.length; i++) {
-      var x = [Date.UTC(mdata[i][0][0], mdata[i][0][1]), mdata[i][1]]
+      var x = [Date.UTC(mdata[i][0][0], mdata[i][0][1]-1), mdata[i][1]]
       touse.push(x)
     }
     $('#container').highcharts({
         chart: {
-            zoomType: 'x'
+            zoomType: 'x',
+            backgroundColor: '#ffffe6',
+            type: 'area'
         },
         title: {
-            text: 'Spending'
+            text: 'Spending',
+            style: {
+              color: "#241563"
+            }
         },
         subtitle: {
             text: document.ontouchstart === undefined ?
-                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in',
+            style: {
+              color: "#241563"
+            }
         },
         xAxis: {
-            type: 'datetime'
+            type: 'datetime',
+            tickColor: "#241563",
+            labels: {
+              style: {
+                color: "#241563"
+              }
+            },
+            title: {
+              style: {
+                color: "#241563"
+              }
+            }
         },
         yAxis: {
             title: {
-                text: '$$$'
+                text: '$$$',
+                style: {
+                  color: "#241563"
+                }
+            },
+            labels: {
+              style: {
+                color: "#241563"
+              }
             }
         },
         legend: {
@@ -122,8 +263,10 @@ $(function () {
                         y2: 1
                     },
                     stops: [
-                        [0, Highcharts.getOptions().colors[0]],
-                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        // [0, Highcharts.getOptions().colors[0]],
+                        // [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        [0, '#ED6A5A'],
+                        [1, '#fbe1de']
                     ]
                 },
                 marker: {
@@ -142,7 +285,8 @@ $(function () {
         series: [{
             type: 'area',
             name: 'Money',
-            data: touse
+            data: touse,
+            color: '#ED6A5A'
         }]
     });
 });

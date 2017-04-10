@@ -1,0 +1,85 @@
+<div class="row">
+	<div class="col-lg-1"></div>
+	<div class="col-lg-10">
+		<% if @expense_ref.errors.any? %>
+
+		<div class="alert alert-danger" role="alert">
+
+			<% @expense_ref.errors.full_messages.each do |message| %>
+			<p>
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<%= message %>
+			</p>
+			<% end %>
+		</div>
+
+		<% end %>
+
+    <%= form_for(@expense_ref,:url => { :action => "create" },remote: true, :html => {:class => 'form-horizontal',:id => 'allinonenew_expense_reference'}) do |f| %>
+
+    <div class="form-group error">
+
+      <%= f.label 'Name',:class => 'col-md-2 control-label',:for => 'expense_reference_ref_name' %>
+
+      <div class="col-md-10">
+
+        <%= f.text_field :ref_name,:class => 'form-control'%>
+
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label "Category",:class => 'col-md-2 control-label',:for => 'expense_reference_expense_category_id' %>
+      <div class="col-md-10">
+
+        <%= f.select(:expense_category_id ,options_for_select(expense_category_options),{},:class => 'form-control')%>
+
+      </div>
+
+    </div>
+    <div class="form-group">
+
+      <%= f.label 'Value',:class => 'col-md-2 control-label',:for => 'expense_reference_ref_value' %>
+
+      <div class="col-md-10">
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <%= f.text_field :ref_value,:class => 'form-control'%>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label "Type",:class => 'col-md-2 control-label',:for => 'expense_reference_ref_type' %>
+      <div class="col-md-10">
+        <label class="radio-inline">
+        <input type="radio" name="expense_reference[ref_type]" id="ref_type_1" value="1" checked>
+        <%=value_for_key("exp_ref_type",1)%> </label>
+        <label class="radio-inline">
+        <input type="radio" name="expense_reference[ref_type]" id="ref_type_2" value="2">
+        <%=value_for_key("exp_ref_type",2)%> </label>
+
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-2 control-label">Date</label>
+      <div class="col-md-5">
+
+        <%= f.select(:ref_month ,options_for_select(lov("month")),{},:class => 'form-control')%>
+
+      </div>
+      <div class="col-md-5">
+        <%= f.select(:ref_year ,options_for_select(lov("year")),{},:class => 'form-control')%>
+      </div>
+
+    </div>
+
+    <!-- <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <button type="submit" class="btn btn-primary" data-dismiss="modal">
+          Create
+        </button>
+        <button type="button" class="btn btn-black" data-dismiss="modal">
+					Cancel
+				</button>
+      </div>
+    </div> -->
+    <%end%>

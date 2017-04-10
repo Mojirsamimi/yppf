@@ -1,5 +1,4 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   day_month: 20
   month: 3
@@ -8,6 +7,9 @@ one:
   amount: 200
   expire_month: 10
   expire_year: 2016
+  expense_category_id: 1
+  bill_status: 1
+  bill_name: 'a bill'
   
 two:
   day_month: 24
@@ -17,3 +19,6 @@ two:
   amount: 20
   expire_month: 10
   expire_year: 2016
+  expense_category_id: 1
+  bill_status: 1
+  bill_name: 'another bill'

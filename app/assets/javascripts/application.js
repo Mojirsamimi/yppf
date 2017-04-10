@@ -18,5 +18,9 @@
 //= require chartkick
 //= require_tree .
 
+//= require bootstrap-sprockets
 
-//= require bootstrap/dropdown
+//= require moment
+//= require fullcalendar
+
+

@@ -21,3 +21,9 @@
 
 en:
   hello: "Hello world"
+en:
+  activerecord:
+    attributes:
+      expense_reference:
+        ref_name: "Name"
+        ref_value: "Value"

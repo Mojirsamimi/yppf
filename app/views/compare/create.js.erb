@@ -1,0 +1,182 @@
+
+$('#search_results').html("<%= escape_javascript (render(partial: 'search_results')) %>");
+
+
+
+//<!-- Pie Chart for month 1 -->
+$(function () {
+  Highcharts.getOptions().plotOptions.pie.colors = (function () {
+      // var colors = ['#e72760', '#36c9c6', '#fbbb4f', '#aa71de', '#ffff00', '#ed6a5a', '#90e86c', '#60a0cc', '#cb72d3', '#7a61e4']
+      // var colors = ['#36C9C6', '#227F7E', '#45FFFB', '#11403F', '#3EE5E2', '#ED6A5A', '#7F3930', '#FF7261', '#401D18', '#E56757']
+      // var colors = ['#36C9C6', '#227F7E', '#45FFFB', '#11403F', '#3EE5E2']
+      var colors = [ '#7e5aed', '#ed5aa3', '#ed6a5a', '#eda35a', '#eded5a', '#a3ed5a', '#5aed7e', '#5aedc8', '#5ac8ed', '#5a7eed']
+
+
+      // var colors = ['#f08475', '#86dfdd']
+
+
+
+      return colors;
+  }());
+    $('#pie1').highcharts({
+        chart: {
+            backgroundColor: '#ffffe6',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+        },
+        title: {
+            text: '<%=@month1name%>',
+            style: {
+              color: "#241563"
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>${point.y}</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || '#241563'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Spent',
+            colorByPoint: true,
+            data: <%= @series1.to_json.html_safe %>
+        }]
+    });
+});
+
+
+
+//<!-- Pie Chart for month 2 -->
+$(function () {
+    Highcharts.getOptions().plotOptions.pie.colors = (function () {
+        // var colors = ['#e72760', '#36c9c6', '#fbbb4f', '#aa71de', '#ffff00', '#ed6a5a', '#90e86c', '#60a0cc', '#cb72d3', '#7a61e4']
+        // var colors = ['#36C9C6', '#227F7E', '#45FFFB', '#11403F', '#3EE5E2', '#ED6A5A', '#7F3930', '#FF7261', '#401D18', '#E56757']
+        // var colors = ['#36C9C6', '#227F7E', '#45FFFB', '#11403F', '#3EE5E2']
+        // var colors = ['#ed6a5a', '#eda35a', '#eded5a', '#a3ed5a', '#5aed7e', '#5aedc8', '#5ac8ed', '#5a7eed', '#7e5aed', '#ed5aa3']
+
+
+        var colors = [ '#7e5aed', '#ed5aa3', '#ed6a5a', '#eda35a', '#eded5a', '#a3ed5a', '#5aed7e', '#5aedc8', '#5ac8ed', '#5a7eed']
+
+
+        // var colors = ['#f08475', '#86dfdd']
+
+
+
+        return colors;
+    }());
+    $('#pie2').highcharts({
+        chart: {
+            backgroundColor: '#ffffe6',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: '<%=@month2name%>',
+            style: {
+              color: "#241563"
+            }
+        },
+        tooltip: {
+          pointFormat: '{series.name}: <b>${point.y}</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || '#241563'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Spent',
+            colorByPoint: true,
+            data: <%= @series2.to_json.html_safe %>
+        }]
+    });
+});
+
+//<!--High Charts bar chart  -->
+$(function () {
+    $('#bar').highcharts({
+        chart: {
+            backgroundColor: '#ffffe6',
+            type: 'column',
+            style: {
+              color: "#241563"
+            }
+        },
+        title: {
+            text: 'Expense Comparison',
+            style: {
+              color: "#241563"
+            }
+        },
+        legend: {
+          itemStyle: {
+            color: '#241563'
+          },
+          itemHoverStyle: {
+            color: '#241563'
+          }
+        },
+        xAxis: {
+            categories: [],
+            tickColor: "#241563",
+            labels: {
+              style: {
+                color: "#241563"
+              }
+            },
+            title: {
+              style: {
+                color: "#241563"
+              }
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Money Spent',
+                style: {
+                  color: "#241563"
+                }
+                // y axis - how much money
+            },
+            // gridLineColor: "#241563",
+            labels: {
+              style: {
+                color: "#241563"
+              }
+            }
+        },
+        series: [{
+            // months
+            name: '<%= @month1name %>',
+            data: <%= @series1.to_json.html_safe %>,
+            color: '#ED6A5A'
+
+        }, {
+            name: '<%= @month2name %>',
+            data: <%= @series2.to_json.html_safe %>,
+            color: '#36c9c6'
+        }]
+    });
+});

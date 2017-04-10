@@ -1,145 +1,165 @@
+<%= render(partial: 'title')%>
+<br/>
+<div class="panel panel-plain">
+	<div class="panel-heading">
+		<%= render(partial: 'toolbar')%>
+	</div>
+	<div class="row">
+	    <div class="col-lg-1"></div>
+        <div class="col-lg-10">
 
-<h1><center>Budget for <%=@get_month_year%></center></h1>
+            <div id="income-facet">
+                <%= render(partial: 'incomes')%>
+            </div>
+            <br/>
+        </div>
+        <div class="col-lg-1"></div>
+	</div>
 
-<p id="notice"><%= notice %></p>
+	<div class="row">
+		<div class="col-lg-1"></div>
+		<div class="col-lg-10">
+			<div id="expense-facet">
+				<%= render(partial: 'expenses')%>
+			</div>
+			<br/>
+		</div>
+		<div class="col-lg-1"></div>
+	</div>
+</div>
 
-<!-- <%= pie_chart Expense.group(:expensetype, :month, :year).sum(:projvalue)%> -->
-<!-- <%=pie_chart Income.group(:incometype, :month, :year).sum(:value)%> -->
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
 
-<h2>Income</h2>
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header modal-header-custom">
+				<button type="button" class="close" data-dismiss="modal">
+					&times;
+				</button>
+				<h4 class="modal-title"><font color="#ffffe6">Time to update your Budget for the month!</font></h4>
+			</div>
+			<div class="modal-body modal-body-custom">
+				<div id="allinone-facet">
+					<%= render(partial: 'allinone')%>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-black" data-dismiss="modal">
+					Close
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
 
-<table style = "width:100%">
-  <thead>
-    <tr>
-      <th>Income</th>
-      <th>Type</th>
-      <th>Value</th>
-      <th>Frequency</th>
-      <th>Day Received</th>
-      <th>Month</th>
-      <th>Year</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="modal fade" id="ExpenseReferenceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header modal-header-custom">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel"><font color="#ffffe6">Modal title</font></h4>
+			</div>
+			<div class="modal-body modal-body-custom">
+				<div id="allinone-expense-reference-form">
 
-  <tbody>
-    <% sum = 0 %>
-    <% @incomes.each do |income| %>
-      <tr>
-        <td><%= income.income %></td>
-        <td><%= income.incometype %></td>
-        <td><%= income.value %></td>
-        <td><%= income.frequency %></td>
-        <td><%= income.day_rec %></td>
-        <td><%= income.month %></td>
-        <td><%= income.year %></td>
-        <td><%= link_to 'Edit', edit_income_path(income) %></td>
-        <td><%= link_to 'Destroy', income, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% sum = sum + income.value %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-<%= link_to 'New Income', new_income_path %>
-<br>
-<b>Total income for <%=@get_month_year%>: $<%=sum%></b>
-<br>
-
-
-<% @expenses.each do |expense| %>
-  <% x= ExpenseCategory.find(expense.expense_category_id) %>
-  <%= "#{x.exp_name} - #{((expense.actvalue / expense.projvalue) * 100).to_i}% of monthly budget used" %>
-  <div class="progress">
-    <div class="progress-bar <%= get_progress_type((expense.actvalue / expense.projvalue) * 100) %>" role="progressbar" aria-valuenow="<%= expense.actvalue%>" aria-valuemin="0" aria-valuemax="<%= expense.projvalue %>" style="width: <%= (expense.actvalue / expense.projvalue) * 100 %>%">
-    </div>
-  </div>
-<% end %>
-
-<%= get_total_expenditure_message(Date.today.month, Date.today.year) %>
-<div class="progress">
-  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%= get_actvalue(Date.today.month, Date.today.year)%>" aria-valuemin="0" aria-valuemax="<%=get_projvalue(Date.today.month, Date.today.year)%>" style="width: <%= get_total_expenditure(Date.today.month, Date.today.year)%>%">
-  </div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="save-allinone" class="btn btn-primary" data-dismiss="modal">
+					Save changes
+				</button>
+				<button type="button" class="btn btn-black" data-dismiss="modal">
+					Close
+				</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 
+<script>
+    $('#ExpenseReferenceModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)// Button that triggered the modal
+        var expense_detail_url = button.data('url')// Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('New transaction')
+        $.ajax({
+            url : expense_detail_url,
+            type : "GET"
+        });
+    })
 
-<!-- <div class="progress" aria-valuemax="252.95">
-  <% @expenses.each do |expense| %>
-    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%= expense.actvalue%>" aria-valuemin="0" aria-valuemax="<%= expense.projvalue %>" style="width: <%= expense.actvalue %>%">
-    </div>
-  <% end %>
-</div> -->
+    $('#save-allinone').click(function() {
+        $("#allinonenew_expense_reference").submit();
+    })
 
-<h2>Expenses</h2>
-<table style = "width:100%">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Frequency</th>
-      <th>Projected Value</th>
-      <th>Actual Value</th>
-      <th>Percent </th>
-      <th>Month</th>
-      <th>Year</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    $(window).load(function(){
+      if('<%= @get_day %>' == 1){
+        $('#myModal').modal('show');
+      }
+    });
 
-  <tbody>
-    <% @expenses.each do |expense| %>
-      <tr>
-        <% x= ExpenseCategory.find(expense.expense_category_id) %>
-        <td><%= x.exp_name %></td>
-        <td><%= expense.frequency %></td>
-        <td><%= expense.projvalue %></td>
-        <td><%= expense.actvalue %></td>
-        <td><%= expense.percent %></td>
-        <td><%= expense.month %></td>
-        <td><%= expense.year %></td>
-        <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
-        <td><%= link_to 'Destroy', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<br>
+  $('#foobar').click(function() {
+    $("#new_expense_reference").submit();
+  })
 
-<%= link_to 'New Expense', new_expense_path %>
-<br>
+  $(function () {
+		Highcharts.getOptions().plotOptions.pie.colors = (function () {
+      var colors = [ '#ED6A5A', '#36c9c6', '#241563']
 
 
-<h2>Bills</h2>
-<table style = "width:100%">
-  <thead>
-    <tr>
-      <th>Bill</th>
-      <th>Due Day</th>
-      <th>Due Month</th>
-      <th>Due Year</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @bills.each do |bill| %>
-      <tr>
-        <td><%= bill.expenseid %></td>
-        <td><%= bill.day_month %></td>
-        <td><%= bill.month %></td>
-        <td><%= bill.year %></td>
-        <td><%= link_to 'Edit', edit_bill_path(bill) %></td>
-        <td><%= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+      return colors;
+  }());
+    $('#income-container').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 0,
+            plotShadow: false,
+            height: 200,
+            backgroundColor: '#ffffe6'
+        },
+        title: {
+            text: 'Income',
+            align: 'center',
+            verticalAlign: 'middle',
+            y: 40
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
 
-  </tbody>
-</table>
-<br>
+            pie: {
+                dataLabels: {
+                    enabled: true,
+                    distance: -50,
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'white',
+                        textShadow: '0px 1px 2px black'
+                    }
+                },
+                size: 300,
+                startAngle: -90,
+                endAngle: 90,
+                center: ['50%', '100%']
+            }
 
-<%= link_to 'New Bill', new_bill_path %>
-<br>
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            innerSize: '50%',
+            data: <%=get_incomes(Date.today.year,Date.today.month).to_json.html_safe%>
+        }]
+    });
+});
 
 
-<center><%= link_to 'Back to Dashboard', dashboard_new_path %></center>
+</script>

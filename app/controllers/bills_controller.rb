@@ -18,6 +18,13 @@ class BillsController < ApplicationController
     @bill = Bill.new
   end
 
+  def calnew
+    @bill = Bill.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # GET /bills/1/edit
   def edit
   end
@@ -30,9 +37,15 @@ class BillsController < ApplicationController
       @bill.user_id = current_user.id
     end
 
+    # respond_to do |format|
+    #   if @bill.save
+    #     format.js
+    #   end
+    # end
+
     respond_to do |format|
       if @bill.save
-        format.html { redirect_to @bill, notice: 'Bill was successfully created.' }
+        format.html { redirect_to '/calendar/new', notice: 'Bill was successfully created.' }
         format.json { render :show, status: :created, location: @bill }
       else
         format.html { render :new }
@@ -46,7 +59,7 @@ class BillsController < ApplicationController
   def update
     respond_to do |format|
       if @bill.update(bill_params)
-        format.html { redirect_to @bill, notice: 'Bill was successfully updated.' }
+        format.html { redirect_to '/calendar/new', notice: 'Bill was successfully updated.' }
         format.json { render :show, status: :ok, location: @bill }
       else
         format.html { render :edit }
@@ -73,7 +86,7 @@ class BillsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bill_params
-       
+
       params.require(:bill).permit(:user_id, :day_month, :month, :year,:amount,:expire_month,:expire_year)
     end
 end

@@ -6,6 +6,7 @@
  */
 
 /* Move down content because we have a fixed navbar that is 50px tall */
+html, body { background: #ffffe6; }
 
 div{
 
@@ -15,4 +16,54 @@ div{
         /* OLD IE */
         zoom: 1;
     }
+}
+p{
+  color: #241563;
+  text-align: center;
+}
+
+h4{
+  color: #241563;
+  text-align: center;
+}
+
+.style_image {
+  width: auto;
+  height: auto;
+  max-width: 300px;
+  max-height: 200px
+}
+.brand_image {
+  width: auto;
+  height: auto;
+  max-height: 50px
+}
+
+
+#style_image {
+  width: auto;
+  height: auto;
+  max-width: 300px;
+  max-height: 200px;
+}
+
+.btn {
+  border-color: #ED6A5A;
+  background-color: #ED6A5A;
+  color: #ffffe6;
+
+}
+
+.btn-custom {
+  border-color: #ED6A5A;
+  background-color: #ED6A5A;
+  color: #ffffe6 !important;
+
+}
+
+.btn-custom:hover {
+  border-color: #ED6A5A;
+  background-color: #ED6A5A;
+  color: #ffffe6;
+
 }

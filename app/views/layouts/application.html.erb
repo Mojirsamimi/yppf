@@ -1,24 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Take2</title>
+  <title>YPPF</title>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
+  <%= javascript_include_tag "https://www.google.com/jsapi", "chartkick" %>
+
 
   <%= csrf_meta_tags %>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
+<%= stylesheet_link_tag    'dashboard', media: 'all'%>
+
+<nav class="navbar navbar-custom">
   <div class="container">
     <div class="navbar-header">
-      <%= link_to 'YPPF: Young Professional Personal Finance', root_path, class: 'navbar-brand' %>
-    </div>
+        
+       <%= link_to image_tag("Logo3.png",class: "brand_image img-responsive"),home_path%>
+     
+        </div>
+
     <div id="navbar">
-      <ul class="nav navbar-nav">
+   
+  <% if user_signed_in? %>
+<ul class="nav nav-pills navbar-left">
+  <li role="presentation" class="<%=current_page?(budgets_display_path)?'active':'' %>"><%= link_to 'Budget', budgets_display_path, class: 'navbar-subheading' %></li>
+  <li role="presentation" class="<%=current_page?(calendar_new_path)?'active':'' %>"><%= link_to 'Calendar', calendar_new_path, class: 'navbar-subheading' %></li>
+  <li role="presentation" class="<%=current_page?(compare_new_path)?'active':'' %>"><%= link_to 'Compare', compare_new_path, class: 'navbar-subheading' %></li>
+  <li role="presentation" class="<%=current_page?(trend_new_path)?'active':'' %>"><%= link_to 'Trend', trend_new_path, class: 'navbar-subheading' %></li>
+</ul>
+<%end%>
+      <!-- <ul class="nav navbar-nav">
         <li><%= link_to 'Home', root_path %></li>
-      </ul>
+      </ul> -->
       <ul class="nav navbar-nav pull-right">
+
         <% if user_signed_in? %>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">

@@ -1,0 +1,106 @@
+<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <% if @expense_ref.errors.any? %>
+                
+                    
+<div class="alert alert-danger" role="alert">
+                    
+                        <% @expense_ref.errors.full_messages.each do |message| %>
+                        <p>
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <%= message %>
+                        </p>
+                        <% end %>
+                  </div>
+                
+                <% end %>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Edit Expense</h3>
+            </div>
+            <div class="panel-body">
+                
+                <%= form_for(@expense_ref,method: :put,:html => {:class => 'form-horizontal'}) do |f| %>
+                
+                <div class="form-group error">
+                    <!--label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                    </div-->
+                    
+                    <%= f.label 'Name',:class => 'col-sm-2 control-label',:for => 'expense_reference_ref_name' %>
+                    
+                    <div class="col-sm-10">
+                        
+                        <%= f.text_field :ref_name,:class => 'form-control'%>
+                    
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= f.label "Category",:class => 'col-sm-2 control-label',:for => 'expense_reference_expense_category_id' %>
+                    <div class="col-sm-10">
+
+                        <%= f.select(:expense_category_id ,options_for_select(expense_category_options,@expense_ref.expense_category_id),{},:class => 'form-control', :disabled=>'')%>
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+
+                    <%= f.label 'Value',:class => 'col-sm-2 control-label',:for => 'expense_reference_ref_value' %>
+
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <%= f.text_field :ref_value,:class => 'form-control'%>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= f.label "Type",:class => 'col-sm-2 control-label',:for => 'expense_reference_ref_type' %>
+                    <div class="col-sm-10">
+                        <label class="radio-inline">
+                        <input type="radio" name="expense_reference[ref_type]" id="ref_type_1" value="1" disabled="" <%='checked' if @expense_ref.ref_type==1%>>
+                        <%=value_for_key("exp_ref_type",1)%> </label>
+                        <label class="radio-inline">
+                        <input type="radio" name="expense_reference[ref_type]" id="ref_type_2" value="2" disabled="" <%='checked' if @expense_ref.ref_type==2%>>
+                        <%=value_for_key("exp_ref_type",2)%> </label>
+                        <!--label class="radio-inline">
+                             <%=value_for_key("exp_ref_type",@expense_ref.ref_type)%>
+                        </label-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Date</label>
+                    <div class="col-sm-5">
+
+                        <%= f.select(:ref_month ,options_for_select(lov("month"),@expense_ref.ref_month),{},:class => 'form-control',:disabled=>'' )%>
+
+                    </div>
+                    <div class="col-sm-5">
+                        <%= f.select(:ref_year ,options_for_select(lov("year"),@expense_ref.ref_year),{},:class => 'form-control',:disabled=>'')%>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">
+                            Update
+                        </button>
+                        <button type="button" class="btn btn-default" onclick="window.location.href='<%=expense_references_path%>'">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+                <%end%>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+    
+</div>
+
+
+
